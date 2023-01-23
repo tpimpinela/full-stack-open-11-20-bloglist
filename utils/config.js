@@ -1,6 +1,6 @@
 const { NODE_ENV: ENVIRONMENT } = process.env;
 
-const PORT = process.env.PORT || 3003;
+const PORT = process.env.PORT || 8080;
 const MONGODB_URI =
   ENVIRONMENT === "test"
     ? process.env.TEST_MONGODB_URI
