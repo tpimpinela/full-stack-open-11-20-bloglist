@@ -9,6 +9,10 @@ on:
     branches: [master, develop]
     types: [opened, synchronize]
 
+env: 
+      TEST_MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
+      SECRET: '${{ secrets.SECRET }}'
+      MONGODB_URI: ${{ secrets.TEST_MONGODB_URI }}
 jobs:
   simple_deployment_pipeline:
     runs-on: "ubuntu-20.04"

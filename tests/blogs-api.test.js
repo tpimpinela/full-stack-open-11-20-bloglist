@@ -5,6 +5,7 @@ const api = supertest(app);
 const blogList = require("./blogList");
 const mongoose = require("mongoose");
 const User = require("../models/user");
+const { MONGODB_URI } = require("../utils/config");
 
 describe("blogs api", () => {
   let rootUserID;
