@@ -1,0 +1,31 @@
+
+{
+    "env": {
+      "browser": true,
+      "jest": true,
+      "cypress/globals": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:react/recommended",
+      "plugin:react/jsx-runtime"
+    ],
+    "parserOptions": {
+      "ecmaFeatures": {
+        "jsx": true
+      },
+      "ecmaVersion": 2018,
+      "sourceType": "module"
+    },
+    "plugins": ["react", "cypress"],
+    "rules": {
+      "quotes": ["error", "double"],
+      "no-trailing-spaces": "error",
+      "no-console": "error"
+    },
+    "settings": {
+      "react": {
+        "version": "detect"
+      }
+    }
+  }
