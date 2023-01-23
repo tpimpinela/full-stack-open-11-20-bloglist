@@ -20,6 +20,7 @@ app.use(userExtractor);
 app.use("/api", blogsRouter);
 app.use("/api/users", usersRouter);
 app.use("/api/login", loginRouter);
+app.use(express.static("public"));
 if (config.environment === "test") {
   app.use("/api/testing", testRouter);
 }
