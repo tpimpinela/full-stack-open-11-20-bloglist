@@ -1,0 +1,44 @@
+name: Deployment pipeline
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+  pull_request:
+    branches: [master, develop]
+    types: [opened, synchronize]
+
+jobs:
+  simple_deployment_pipeline:
+    runs-on: "ubuntu-20.04"
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - name: npm install backend
+        run: npm install
+      - name: npm install frontend
+        working-directory: ./client
+        run: npm install
+      - name: lint frontend
+        working-directory: ./client
+        run: npm run eslint
+      - name: test frontend
+        working-directory: ./client
+        run: npm run test
+      - name: test backend
+        run: npm run test
+      - name: e2e tests
+        uses: cypress-io/github-action@v5.0.2
+        with:
+          start: npm run start:test
+          wait-on: http://localhost:8080
+          install: false
+          project: ./client
+      - uses: "superfly/flyctl-actions/setup-flyctl@master"
+        if: github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip')
+      - name: deploy to prod
+        if: github.event_name == 'push' && !contains(join(github.event.commits.*.message), '#skip')
+        run: flyctl deploy --remote-only
